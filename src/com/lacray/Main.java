@@ -1,6 +1,9 @@
 package com.lacray;
 
 import com.lacray.controller.BudgetListController;
+import com.lacray.controller.EventCoordinator;
+import com.lacray.controller.GUIPresentationController;
+import com.lacray.controller.PresentationController;
 import com.lacray.model.Budget;
 import com.lacray.view.budgetlistscreen.BudgetsListRoot;
 import javafx.application.Application;
@@ -14,6 +17,8 @@ import java.time.LocalDate;
 public class Main extends Application {
     //  controllers and such
     private static BudgetListController budgetListController = new BudgetListController();
+    private static PresentationController presentationController = new GUIPresentationController();
+    private static EventCoordinator eventCoordinator = new EventCoordinator(presentationController);
 
     //  strings
     private static final String APP_NAME = "Budget Application";
@@ -43,6 +48,7 @@ public class Main extends Application {
 
     private static void registerComponents(){
         budgetsListRoot.registerBudgetController(budgetListController);
+        budgetsListRoot.registerEventCoordinator(eventCoordinator);
     }
 
     private void setSceneListener(Scene scene){

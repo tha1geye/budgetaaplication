@@ -1,20 +1,19 @@
 package com.lacray.view.budgetlistscreen;
 
 import com.lacray.controller.BudgetListController;
+import com.lacray.controller.EventCoordinator;
 import com.lacray.model.Budget;
 import com.lacray.view.HeaderBox;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.layout.BorderPane;
 
 public class BudgetsListRoot extends BorderPane {
     private BudgetListController budgetListController;
+    private EventCoordinator eventCoordinator;
+
     private HeaderBox headerBox;
     private BudgetListVBox budgetListVBox;
-    private ButtonBar buttonBar;
+    private BudgetButtonBar buttonBar;
     private Button addButton;
     private Button deleteButton;
     private Button confirmButton;
@@ -32,6 +31,7 @@ public class BudgetsListRoot extends BorderPane {
 
     private void createComponents(){
         this.budgetListController = null;
+        this.eventCoordinator = null;
     }
 
     private void createChildren(){
@@ -42,38 +42,7 @@ public class BudgetsListRoot extends BorderPane {
     }
 
     private void createButtonBar(){
-        this.buttonBar = new ButtonBar();
-        createButtons();
-        addButtons();
-        addButtonListener();
-    }
-
-    private void createButtons(){
-        confirmButton = new Button("Confirm");
-        deleteButton = new Button("-");
-        addButton = new Button("+");
-    }
-
-    private void addButtons(){
-        buttonBar.getButtons().add(deleteButton);
-        buttonBar.getButtons().add(addButton);
-    }
-
-    private void addButtonListener(){
-        for(Node button : buttonBar.getButtons()) {
-            Button temp = (Button) button;
-            temp.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    if(actionEvent.getSource() == addButton){
-                        System.out.println("add button pressed");
-                    }
-                    else{
-                        System.out.println("delete button pressed");
-                    }
-                }
-            });
-        }
+        this.buttonBar = new BudgetButtonBar(eventCoordinator);
     }
 
     private void createInfoBox(){
@@ -93,6 +62,10 @@ public class BudgetsListRoot extends BorderPane {
     public void registerBudgetController(BudgetListController controller){
         this.budgetListController = controller;
         this.budgetListVBox.registerBudgetListController(this.budgetListController);
+    }
+
+    public void registerEventCoordinator(EventCoordinator eventCoordinator){
+        this.eventCoordinator = eventCoordinator;
     }
 
     public void setSelectedBudgetByIndex(int index){
