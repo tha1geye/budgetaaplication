@@ -14,9 +14,6 @@ public class BudgetsListRoot extends BorderPane {
     private HeaderBox headerBox;
     private BudgetListVBox budgetListVBox;
     private BudgetButtonBar buttonBar;
-    private Button addButton;
-    private Button deleteButton;
-    private Button confirmButton;
     private BudgetListInfoBox infoBox;
 
     private Budget selectedBudget;
@@ -55,7 +52,7 @@ public class BudgetsListRoot extends BorderPane {
         super.setLeft(budgetListVBox);
         super.setBottom(buttonBar);
 
-        // TODO: just finished updating fields. fix resize issue. move buttonbar somewhere that makes more sense.
+        // TODO: fix resize issue. move buttonbar somewhere that makes more sense.
 
     }
 
@@ -69,7 +66,6 @@ public class BudgetsListRoot extends BorderPane {
     }
 
     public void setSelectedBudgetByIndex(int index){
-        System.out.println("Budget selected: " + index);
         setSelectedBudget(budgetListController.getSelectedBudgetByIndex(index));
     }
 

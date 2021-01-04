@@ -61,15 +61,23 @@ public class BudgetButtonBar extends HBox {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     if(actionEvent.getSource() == addButton){
-                        System.out.println("add button pressed");
-                        eventCoordinator.handleBudgetEvent(new BudgetEvent(BudgetEventType.ADD_BUDGET));
+                        handleAddButtonPressed();
                     }
                     else{
-                        System.out.println("delete button pressed");
+                        handleDeleteButtonPressed();
                     }
                 }
             });
         }
+    }
+
+    private void handleAddButtonPressed(){
+        System.out.println("add button pressed");
+        eventCoordinator.handleBudgetEvent(new BudgetEvent(BudgetEventType.ADD_BUDGET));
+    }
+
+    private void handleDeleteButtonPressed(){
+        System.out.println("delete button pressed");
     }
 
     private void setLayout(){
