@@ -1,15 +1,13 @@
 package com.lacray.view.budgetlistscreen;
 
-import com.lacray.controller.BudgetListController;
-import com.lacray.controller.EventCoordinator;
+import com.lacray.controller.PresentationController;
 import com.lacray.model.Budget;
 import com.lacray.view.HeaderBox;
-import javafx.scene.control.Button;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.BorderPane;
 
 public class BudgetsListRoot extends BorderPane {
-    private BudgetListController budgetListController;
-    private EventCoordinator eventCoordinator;
+    private PresentationController presentationController;
 
     private HeaderBox headerBox;
     private BudgetListVBox budgetListVBox;
@@ -18,17 +16,17 @@ public class BudgetsListRoot extends BorderPane {
 
     private Budget selectedBudget;
 
-    public BudgetsListRoot() {
+    public BudgetsListRoot(PresentationController presentationController) {
         super();
+        this.presentationController = presentationController;
         selectedBudget = null;
         createComponents();
         createChildren();
         setLayout();
+        presentationController.requestUpdate();
     }
 
     private void createComponents(){
-        this.budgetListController = null;
-        this.eventCoordinator = null;
     }
 
     private void createChildren(){
@@ -39,7 +37,7 @@ public class BudgetsListRoot extends BorderPane {
     }
 
     private void createButtonBar(){
-        this.buttonBar = new BudgetButtonBar(eventCoordinator);
+        this.buttonBar = new BudgetButtonBar(presentationController);
     }
 
     private void createInfoBox(){
@@ -56,17 +54,9 @@ public class BudgetsListRoot extends BorderPane {
 
     }
 
-    public void registerBudgetController(BudgetListController controller){
-        this.budgetListController = controller;
-        this.budgetListVBox.registerBudgetListController(this.budgetListController);
-    }
-
-    public void registerEventCoordinator(EventCoordinator eventCoordinator){
-        this.eventCoordinator = eventCoordinator;
-    }
 
     public void setSelectedBudgetByIndex(int index){
-        setSelectedBudget(budgetListController.getSelectedBudgetByIndex(index));
+        System.out.println("reimplement setSelectedBudgetByIndex");
     }
 
     private void setSelectedBudget(Budget budget){
@@ -76,6 +66,9 @@ public class BudgetsListRoot extends BorderPane {
 
     private void update(){
         infoBox.update(selectedBudget);
+    }
 
+    public void updateBudgets(ObservableList<String> budgetsListTitles){
+        budgetListVBox.updateBudgets(budgetsListTitles);
     }
 }

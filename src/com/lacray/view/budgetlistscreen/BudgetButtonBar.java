@@ -1,10 +1,10 @@
 package com.lacray.view.budgetlistscreen;
 
-import com.lacray.controller.EventCoordinator;
+import com.lacray.controller.PresentationController;
 import com.lacray.controller.events.BudgetEvent;
-import com.lacray.controller.events.BudgetEventType;
+import com.lacray.controller.events.EventType;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
+
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -12,16 +12,16 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.layout.HBox;
 
 public class BudgetButtonBar extends HBox {
-    private EventCoordinator eventCoordinator;
+    private PresentationController presentationController;
 
     private ButtonBar buttonBar;
     private Button addButton;
     private Button deleteButton;
     private Button confirmButton;
 
-    public BudgetButtonBar(EventCoordinator eventCoordinator){
+    public BudgetButtonBar(PresentationController presentationController){
         super();
-        this.eventCoordinator = eventCoordinator;
+        this.presentationController = presentationController;
 
         createComponents();
         createChildren();
@@ -72,12 +72,11 @@ public class BudgetButtonBar extends HBox {
     }
 
     private void handleAddButtonPressed(){
-        System.out.println("add button pressed");
-        eventCoordinator.handleBudgetEvent(new BudgetEvent(BudgetEventType.ADD_BUDGET));
+        presentationController.handleEvent(new BudgetEvent(EventType.ADD_BUDGET));
     }
 
     private void handleDeleteButtonPressed(){
-        System.out.println("delete button pressed");
+        presentationController.handleEvent(new BudgetEvent(EventType.DELETE_BUDGET));
     }
 
     private void setLayout(){

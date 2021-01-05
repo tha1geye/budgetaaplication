@@ -1,13 +1,11 @@
 package com.lacray.controller.events;
 
-public class BudgetEvent {
-    private BudgetEventType type;
-
-    public BudgetEvent(BudgetEventType type){
-        this.type = type;
+public class BudgetEvent extends AppEvent{
+    public BudgetEvent(EventType type){
+        super(type);
     }
 
-    public BudgetEventType getEventType(){
+    public EventType getEventType(){
         return this.type;
     }
 }

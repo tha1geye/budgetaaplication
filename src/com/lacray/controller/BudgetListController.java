@@ -28,6 +28,10 @@ public class BudgetListController {
         }
     }
 
+    public ArrayList<Budget> getAllBudgets(){
+        return this.budgets;
+    }
+
     public ObservableList<String> getBudgetsObservableList(){
         return FXCollections.observableList(budgetTitles);
     }

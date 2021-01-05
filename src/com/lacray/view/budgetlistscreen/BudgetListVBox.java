@@ -2,6 +2,9 @@ package com.lacray.view.budgetlistscreen;
 
 import com.lacray.controller.BudgetListController;
 import com.lacray.model.Budget;
+import javafx.beans.Observable;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -16,7 +19,6 @@ import java.util.ArrayList;
 public class BudgetListVBox extends VBox {
     //  strings
     //  components
-    private BudgetListController budgetListController;
     private BudgetsListRoot parent;
 
     //  UI
@@ -31,7 +33,6 @@ public class BudgetListVBox extends VBox {
         createComponents();
         createChildren();
         setLayout();
-
     }
 
     private void createComponents(){
@@ -56,12 +57,11 @@ public class BudgetListVBox extends VBox {
         super.getChildren().addAll(listView);
     }
 
-    public void registerBudgetListController(BudgetListController controller){
-        this.budgetListController = controller;
-        this.listView.setItems(budgetListController.getBudgetsObservableList());
-    }
-
     private void updateSelection(int index){
         parent.setSelectedBudgetByIndex(index);
+    }
+
+    public void updateBudgets(ObservableList<String> budgetTitleList){
+        listView.setItems(budgetTitleList);
     }
 }
